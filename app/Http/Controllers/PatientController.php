@@ -11,6 +11,7 @@ use Flash;
 use DateTime;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Log;
 
 class PatientController extends AppBaseController
 {
@@ -54,6 +55,10 @@ class PatientController extends AppBaseController
     public function store(CreatePatientRequest $request)
     {
         $input = $request->all();
+         Log::info($input['birth']);
+         $input['birth'] = \Carbon\Carbon::createFromFormat('d/m/Y',$input['birth']);
+         Log::info($input['birth']);
+         
 
         $patient = $this->patientRepository->create($input);
 
@@ -114,11 +119,16 @@ class PatientController extends AppBaseController
     {
         $patient = $this->patientRepository->findWithoutFail($id);
 
+
         if (empty($patient)) {
             Flash::error('Patient not found');
 
             return redirect(route('patients.index'));
         }
+
+          Log::info($request['birth']);
+         $request['birth'] = \Carbon\Carbon::createFromFormat('d/m/Y',$request['birth']);
+         Log::info($request['birth']);
 
         $patient = $this->patientRepository->update($request->all(), $id);
 

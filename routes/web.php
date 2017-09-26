@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index');
 Route::resource('doctors', 'DoctorController');
 
 Route::resource('patients', 'PatientController');
+
+Route::resource('appointments', 'AppointmentController');
