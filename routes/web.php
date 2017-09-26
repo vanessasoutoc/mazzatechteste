@@ -49,3 +49,21 @@ Route::get('patientsjson', function (){
 	}
 	return Response::json($return_array);
 });
+
+Route::post('access-token', 'AuthenticateController@authenticate');
+Route::get('teste', 'AuthenticateController@teste');
+
+
+
+Route::group(['prefix' => 'api', 'middleware'=>'cors', 'namespace'=>'Api\V1'], 
+	function() {
+		Route::post('authenticate', 'AuthenticateController@authenticate');
+		Route::get('teste', 'AuthenticateController@teste');
+
+		Route::group(['middleware'=>'jwt.auth'], function(){
+			Route::group(['prefix'=>'doctors'], function(){
+				Route::get('/', ['as'=>'doctors.index', 'uses'=>'DoctorController@index']);
+			});
+			
+		});
+	});
