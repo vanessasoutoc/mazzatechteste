@@ -10,9 +10,11 @@
         @include('core-templates::common.errors')
 
         <div class="row">
-            {!! Form::model($appointment, ['route' => ['appointments.update', $appointment->id], 'method' => 'patch']) !!}
 
-            @include('appointments.fields')
+
+            {!! Form::model($appointment, ['route' => ['appointments.update', $appointment->id], 'method' => 'patch']) !!}
+@include('appointments.fields')
+            
 
             {!! Form::close() !!}
         </div>

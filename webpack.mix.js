@@ -13,7 +13,6 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
 	.scripts([
-		'resources/assets/bower_resources/jquery/dist/jquery.min.js',
 		'resources/assets/bower_resources/moment/min/moment.min.js',
 		'resources/assets/bower_resources/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
 		], 'public/js/all.js')

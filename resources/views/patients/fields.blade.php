@@ -12,7 +12,7 @@
 		{!! Form::label('E-mail') !!}
 	{!! Form::text('email', @$email, ['class' => 'form-control']) !!}
 	{!! Form::label('Aniversário') !!}
-	{!! Form::text('birth', @$birth, ['class' => 'form-control', 'id'=>'datetimepicker1'] )!!}
+	{!! Form::text('birth', @$birth, ['class' => 'form-control'] )!!}
 	<br>
 	{!! Form::submit('Adicionar', ['class' => 'btn btn-primary pull-right']) !!}
 	<a href="{!! route('patients.index') !!}" class="btn btn-default pull-right">Cancelar</a>
@@ -20,11 +20,12 @@
 @section('scripts')
 <script type="text/javascript">
 	$(function(){
-        $('#datetimepicker1').datetimepicker({
+      $('#datetimepicker1').datetimepicker({
         	format: 'DD/MM/YYYY',
-        	dateDefault: $('#datetimepicker1').val();
+        	//defaultDate: moment('2017-02-05', 'Y-m-d')->format('d/m/Y'),
         });
     });
+
 </script>
 	
 @endsection

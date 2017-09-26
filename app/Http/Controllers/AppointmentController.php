@@ -58,10 +58,10 @@ class AppointmentController extends Controller
             return redirect(route('doctors.index'));
         }
    
-         //$request['appointment_date'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i',$request['appointment_date']);
+         $request['appointment_date'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i',$request['appointment_date']);
 
 
-        $appointment = $this->appointmentRepository->update($request->all(), $id);
+        $appointment = $this->appointmentRepository->update($request->except(['doctor','patient']), $id);
 
         Flash::success('Agendamento alterado com sucesso.');
 
@@ -82,7 +82,7 @@ class AppointmentController extends Controller
     }
 
     public function store(CreateAppointmentRequest $request){
-    	$input = $request->all();
+    	$input = $request->except(['doctor','patient']);
 
   	
          $input['appointment_date'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i',$input['appointment_date']);
@@ -112,4 +112,5 @@ class AppointmentController extends Controller
 
         return redirect(route('appointments.index'));
     }
+
 }
