@@ -5,6 +5,7 @@ use App\Models\Patient;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,12 @@ use Illuminate\Support\Facades\Input;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+	if(Auth::guest()){
+		return view('auth/login');
+	}
+
+	return redirect()->action('HomeController@index');
+    
 });
 
 Auth::routes();
