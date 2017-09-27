@@ -22,8 +22,7 @@
         "laravelcollective/html": "^5.5.0",
         "infyomlabs/core-templates": "5.3.x-dev",
         "infyomlabs/adminlte-templates": "5.5.x-dev",
-        "doctrine/dbal": "~2.3",
-        "dingo/api": "1.0.*@dev"
+        "doctrine/dbal": "~2.3"
     },
     "autoload": {
         "classmap": [
