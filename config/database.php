@@ -1,11 +1,5 @@
 <?php
 
-$url = parse_url(getenv("postgres://nxkipnaytxkduz:054928d50fc96fc3ac0f812964619e461a73bda8961c072745c163bbe868f8db@ec2-54-225-88-191.compute-1.amazonaws.com:5432/d8fudts808grvp"));
-
-$host = 'localhost';
-$username = $url["user"];
-$password = $url["pass"];
-$database = substr($url["path"], 1);
 
 return [
 
@@ -20,8 +14,8 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
-    
+    'default' => 'pgsql',
+
 
 
     /*
@@ -65,10 +59,10 @@ return [
 
         'pgsql' => [
             'driver'   => 'pgsql',
-            'host'     => $host,
-            'database' => $database,
-            'username' => $username,
-            'password' => $password,
+            'host'     => parse_url(getenv("DATABASE_URL"))["host"],
+            'database' => substr(parse_url(getenv("DATABASE_URL"))["path"], 1),
+            'username' => parse_url(getenv("DATABASE_URL"))["user"],
+            'password' => parse_url(getenv("DATABASE_URL"))["pass"],
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
