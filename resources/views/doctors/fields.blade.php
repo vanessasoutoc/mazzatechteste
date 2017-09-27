@@ -10,9 +10,9 @@
         {!! Form::label('Nº Telefone') !!}
         {!! Form::text('cellphone', @$crm, ['class' => 'form-control']) !!}
         <br>
-        {!! Form::submit('Save', ['class' => 'btn btn-primary pull-right']) !!}
+        {!! Form::submit('Salvar', ['class' => 'btn btn-primary pull-right']) !!}
         
-        <a href="{!! route('doctors.index') !!}" class="btn btn-default pull-right">Cancel</a>
+        <a href="{!! url('/doctors') !!}" class="btn btn-default pull-right">Voltar</a>
     </div>
 
      

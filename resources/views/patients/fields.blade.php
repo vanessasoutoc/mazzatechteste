@@ -14,8 +14,8 @@
 	{!! Form::label('Aniversário') !!}
 	{!! Form::text('birth', @$birth, ['class' => 'form-control'] )!!}
 	<br>
-	{!! Form::submit('Adicionar', ['class' => 'btn btn-primary pull-right']) !!}
-	<a href="{!! route('patients.index') !!}" class="btn btn-default pull-right">Cancelar</a>
+	{!! Form::submit('Salvar', ['class' => 'btn btn-primary pull-right']) !!}
+	<a href="{!! route('patients.index') !!}" class="btn btn-default pull-right">Voltar</a>
 </div>
 @section('scripts')
 <script type="text/javascript">

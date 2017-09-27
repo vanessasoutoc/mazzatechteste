@@ -72,8 +72,8 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url('/login') }}">Login</a></li>
-                <li><a href="{{ url('/register') }}">Register</a></li>
+                <li><a href="{{ url('/login') }}">Entrar</a></li>
+                <li><a href="{{ url('/register') }}">Registrar</a></li>
             </ul>
         </div>
     </div>
@@ -172,7 +172,7 @@
 <!-- Page Content -->
 <div id="page-content-wrapper">
 
-    <div class="container-fluid">
+    <div class="container">
 
         <div class="row">
             @if (config('infyom.laravel_generator.add_on.menu.enabled') and !Auth::guest())

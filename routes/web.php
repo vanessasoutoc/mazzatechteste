@@ -67,7 +67,7 @@ Route::group(['prefix' => 'api', 'middleware'=>'cors', 'namespace'=>'Api\V1'],
 		Route::get('teste', 'AuthenticateController@teste');
 
 		Route::group(['middleware'=>'jwt.auth'], function(){
-			Route::group(['prefix'=>'doctors'], function(){
+			Route::group(['prefix'=>'doctorsapi'], function(){
 				Route::get('/', ['as'=>'doctors.index', 'uses'=>'DoctorController@index']);
 			});
 			

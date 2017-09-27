@@ -3,17 +3,19 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+            <br><br>
+                <img src="{{asset('images/doctor.png')}}" width="200" class="img-responsive center-block">
+                <br>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
+                            <label class="col-md-3 control-label">E-Mail</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
@@ -25,9 +27,9 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Password</label>
+                            <label class="col-md-3 control-label">Senha</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <input type="password" class="form-control" name="password">
 
                                 @if ($errors->has('password'))
@@ -39,24 +41,30 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
+                            <div class="col-md-12" style="text-align: center">
+                                <div class="checkbox ">
                                     <label>
-                                        <input type="checkbox" name="remember"> Remember Me
+                                        <input type="checkbox" name="remember"> Lembrar-me
                                     </label>
                                 </div>
+                            
                             </div>
                         </div>
+                        
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-btn  fa-sign-in"></i>&emsp;Entrar
                                 </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <a class="btn btn-link center-block" href="{{ url('/password/reset') }}">Esqueceu a Senha?</a>
+                            </div>
+                        </div>
+                   
                     </form>
                 </div>
             </div>
