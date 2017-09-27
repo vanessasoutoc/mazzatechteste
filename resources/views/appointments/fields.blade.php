@@ -15,7 +15,7 @@
 	{!! Form::text('appointment_date', @$appointment->appointment_date, ['class' => 'form-control appointmentdate', 'id'=>'appointmentdate'] )!!}
 	<br>
 	{!! Form::submit('Adicionar', ['class' => 'btn btn-primary pull-right']) !!}
-	<a href="{!! route('appointments.index') !!}" class="btn btn-default pull-right">Cancelar</a>
+	<a href="{!! route('appointments.index') !!}" class="btn btn-default pull-right">Voltar</a>
 </div>
 @section('scripts')
 
