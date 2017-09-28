@@ -16,35 +16,35 @@ use Log;
 class AppointmentController extends Controller
 {
 
- 	private $appointmentRepository;
+    private $appointmentRepository;
 
     public function __construct(AppointmentRepository $appointmentRepo)
     {
         $this->middleware('auth');
-         $this->appointmentRepository = $appointmentRepo;
+        $this->appointmentRepository = $appointmentRepo;
     }
 
     public function index(AppointmentDataTable $appointmentDataTable){
-  		return $appointmentDataTable->render('appointments.index');
+        return $appointmentDataTable->render('appointments.index');
     }
 
     public function create(){
-    	return view('appointments.create');
+        return view('appointments.create');
     }
 
-      public function edit($id){
-         //$appointment = $this->appointmentRepository->findWithoutFail($id);
+    public function edit($id){
+        //$appointment = $this->appointmentRepository->findWithoutFail($id);
         $appointment = Appointment::find($id)->with('doctor')->with('patient')->get();
         $appointment = $appointment[0];
         Log::info($appointment);
-        
+
         if (empty($appointment)) {
-             Flash::error('Agendamento não existe.');
+            Flash::error('Agendamento não existe.');
 
-             return redirect(route('appointments.index'));
-         }
+            return redirect(route('appointments.index'));
+        }
 
-         return view('appointments.edit')->with('appointment', $appointment);
+        return view('appointments.edit')->with('appointment', $appointment);
     }
 
     public function update($id, UpdateAppointmentRequest $request)
@@ -57,8 +57,8 @@ class AppointmentController extends Controller
 
             return redirect(route('doctors.index'));
         }
-   
-         $request['appointment_date'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i',$request['appointment_date']);
+
+        $request['appointment_date'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i',$request['appointment_date']);
 
 
         $appointment = $this->appointmentRepository->update($request->except(['doctor','patient']), $id);
@@ -82,15 +82,15 @@ class AppointmentController extends Controller
     }
 
     public function store(CreateAppointmentRequest $request){
-    	$input = $request->except(['doctor','patient']);
+        $input = $request->except(['doctor','patient']);
+        Log::info($input);
 
-  	
-         $input['appointment_date'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i',$input['appointment_date']);
-         
+        $input['appointment_date'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i',$input['appointment_date']);
 
- 		 $appointment = $this->appointmentRepository->create($input);
 
-         Flash::success('Agendamento salvo com sucesso.');
+        $appointment = $this->appointmentRepository->create($input);
+
+        Flash::success('Agendamento salvo com sucesso.');
 
         return redirect(route('appointments.index'));
 

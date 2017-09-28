@@ -33,8 +33,9 @@ class AppointmentDataTable extends DataTable
      */
     public function query(Appointment $model)
     {
-        //Log::info((string)$model->newQuery());
-        return Appointment::with('doctor')->with('patient')->newQuery();
+        $doctors = $model->newQuery();
+        $doctors = $doctors->with('doctor')->with('patient');
+        return $doctors;
     }
 
     /**
@@ -69,8 +70,8 @@ class AppointmentDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'Médico' => ['name' => 'doctor.name', 'data' => 'doctor.name'],
-            'Paciente' => ['name' => 'patient.name', 'data' => 'patient.name'],
+            'Médico' => ['name' => 'doctor_id', 'data' => 'doctor.name'],
+            'Paciente' => ['name' => 'patient_id', 'data' => 'patient.name'],
             'Data Consulta' => ['name' => 'appointment_date', 'data' => 'appointment_date'],
         ];
     }
