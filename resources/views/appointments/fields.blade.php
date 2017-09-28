@@ -4,18 +4,18 @@
 @endsection
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-{!! Form::text('doctor_id', null, ['class' => 'form-control','id' => 'doctor_id','style'=>'display:none']) !!}
-{!! Form::text('patient_id', null, ['class' => 'form-control','id' => 'patient_id','style'=>'display:none']) !!}
-	{!! Form::label('Médico') !!}
-	{!! Form::text('doctor', @$appointment->doctor->name, ['type'=>'select','class' => 'form-control','id' => 'doctor']) !!}
-	{!! Form::label('Paciente') !!}
-	{!! Form::text('patient', @$appointment->patient->name, ['class' => 'form-control', 'id' => 'patient']) !!}
-	
-	{!! Form::label('Data Consulta') !!}
-	{!! Form::text('appointment_date', @$appointment->appointment_date, ['class' => 'form-control appointmentdate', 'id'=>'appointmentdate'] )!!}
-	<br>
-	{!! Form::submit('Adicionar', ['class' => 'btn btn-primary pull-right']) !!}
-	<a href="{!! route('appointments.index') !!}" class="btn btn-default pull-right">Voltar</a>
+    {!! Form::text('doctor_id', @$appointment->doctor_id, ['class' => 'form-control','id' => 'doctor_id','style'=>'display:none']) !!}
+    {!! Form::text('patient_id', @$appointment->patient_id, ['class' => 'form-control','id' => 'patient_id','style'=>'display:none']) !!}
+    {!! Form::label('Médico') !!}
+    {!! Form::text('doctor', @$appointment->doctor->name, ['type'=>'select','class' => 'form-control','id' => 'doctor']) !!}
+    {!! Form::label('Paciente') !!}
+    {!! Form::text('patient', @$appointment->patient->name, ['class' => 'form-control', 'id' => 'patient']) !!}
+
+    {!! Form::label('Data Consulta') !!}
+    {!! Form::text('appointment_date', @$appointment->appointment_date, ['class' => 'form-control appointmentdate', 'id'=>'appointmentdate'] )!!}
+    <br>
+    {!! Form::submit('Adicionar', ['class' => 'btn btn-primary pull-right']) !!}
+    <a href="{!! route('appointments.index') !!}" class="btn btn-default pull-right">Voltar</a>
 </div>
 @section('scripts')
 
@@ -24,88 +24,95 @@
 <script type="text/javascript">
 
 
+    $(function(){
+        var date = <?php echo json_encode(@$appointment->appointment_date); ?>;
+        console.log(date);
 
-	$(function(){
-		var date = <?php echo json_encode(@$appointment->appointment_date); ?>;
-		console.log(date);
+        $('#appointmentdate').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm',
+            defaultDate: date
+        });
 
-		$('#appointmentdate').datetimepicker({
-			format: 'DD/MM/YYYY HH:mm',
-			defaultDate: date
-		});
-		
 
-		$('#doctor').autocomplete({
-			source: function (request, response) {
-				var name = $('#doctor').val();
-				$.ajax({
-					url: "/doctorsjson",
-					data: {'name':request.doctor}
-				}).error(function(err){
-					alert(err);
-				}).success(function(data) {
-     
-                response($.map(data, function(value,key){
-       
-                	return {
-                		label:value.id +' '+ value.name,
-                		value:value.id +' '+ value.name
-                	}   
-                }))
-            });   
-			},
-			select: function(event, ui){
+        $('#doctor').autocomplete({
+            source: function (request, response) {
+                var name = $('#doctor').val();
+                $.ajax({
+                    url: "/doctorsjson",
+                    data: {'name':request.doctor}
+                }).error(function(err){
+                    alert(err);
+                }).success(function(data) {
 
-				var label = ui.item.label;
-				var value = ui.item.value;
+                    response($.map(data, function(value,key){
 
-				 var code = $('#doctor').val();
-		
-				 code = code.substr(0, code.indexOf(' '))
+                        return {
+                            label:value.id +' '+ value.name,
+                            value:value.id +' '+ value.name
+                        }   
+                    }))
+                });   
+            },
+            select: function(event, ui){
+                window.setTimeout(function(){
+                    var label = ui.item.label;
+                    var value = ui.item.value;
 
-				 $("#doctor_id").val(code);
-			},
-			minLength: 5,
-			delay: 100
+                    var code = $('#doctor').val();
 
-		});
-		
-		$('#patient').autocomplete({
-			source: function (request, response) {
-				var name = $('#patient').val();
-				$.ajax({
-					url: "/patientsjson",
-					data: {'name':request.patient}
-				}).error(function(err){
-					alert(err);
-				}).success(function(data) {
-      
-                response($.map(data, function(value,key){
-  
-                	return {
-                		label:value.id +' '+ value.name,
-                		value:value.id +' '+ value.name
-                	}   
-                }))
-            });   
-			},
-			select: function(event, ui){
+                    code = code.substr(0, code.indexOf(' '))
 
-				var label = ui.item.label;
-				var value = ui.item.value;
+                    $("#doctor_id").val(code);
 
-				 var code = $('#patient').val();
-		
-				 code = code.substr(0, code.indexOf(' '))
+                },1);
+            },
+            minLength: 5,
+            delay: 100
 
-				 $("#patient_id").val(code);
-			},
-			minLength: 5,
-			delay: 100
+        });
 
-		});
+        $('#patient').autocomplete({
+            source: function (request, response) {
+                var name = $('#patient').val();
+                $.ajax({
+                    url: "/patientsjson",
+                    data: {'name':request.patient}
+                }).error(function(err){
+                    alert(err);
+                }).success(function(data) {
 
-	});
+                    response($.map(data, function(value,key){
+
+                        return {
+                            label:value.id +' '+ value.name,
+                            value:value.id +' '+ value.name
+                        }   
+                    }))
+                });   
+            },
+            select: function(event, ui){
+                window.setTimeout(function(){
+
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+
+                    var code = $('#patient').val();
+
+                    code = code.substr(0, code.indexOf(' '))
+
+                    $("#patient_id").val(code)
+                },1)
+            },
+
+
+            minLength: 5,
+            delay: 100
+
+
+
+        });
+
+    });
 
 </script>
 
