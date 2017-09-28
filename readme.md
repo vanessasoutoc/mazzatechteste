@@ -52,7 +52,7 @@ Para receber o token faça um POST para a url localhost:8000/api/authenticate
 
 {"email":"teste@gmail.com","password":"12345678"}
 
-Para visualizar a lista de médicos faça um GET para a url localhost:8000/api/doctors
+Para visualizar a lista de médicos faça um GET para a url localhost:8000/api/doctorsapi
 
 com os HEADERS
 
